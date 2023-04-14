@@ -1,0 +1,15 @@
+.navbar-button {
+    background-color: #741eff;
+    color: white;
+    border-radius: 15px;
+    padding: 10px 20px;
+    border: 1.5px solid #741eff;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.navbar-button:hover {
+    background-color: white;
+    border: 1.5px solid #741eff;
+    color: #741eff;
+}
