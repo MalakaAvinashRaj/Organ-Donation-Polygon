@@ -64,6 +64,7 @@ function SetDonor() {
             <div className="container">
                 <div className="row center-box">
                     <h3>Register an organ donor</h3>
+                    <p>Bug to be fixed: Please dont unselect Organ(s)</p>
                     <div className="col-md-4 form-bg">
 
                         <p>Full Name: <input type="text" id="DonorFullName" placeholder="Full name" value={fullName} onChange={(e) => { setFullName(e.target.value) }} /></p>
@@ -90,7 +91,7 @@ function SetDonor() {
                         <p>Medical ID: <input type="text" id="DonorMedicalID" placeholder="Donor Medical ID" value={medicalID} onChange={(e) => { setMedicalID(e.target.value) }} /></p>
                         <form>
                             <label><p>Blood Type:</p></label>
-                            <select name="bloodtype" id="DonorBloodType" onChange={(e) => { setBloodType(e.target.value) }}>
+                            <select name="bloodtype" id="DonorBloodType" placeholder='--select--' onChange={(e) => { setBloodType(e.target.value) }}>
                                 <option value="A-">A-</option>
                                 <option value="A+">A+</option>
                                 <option value="B-">B-</option>
@@ -104,7 +105,7 @@ function SetDonor() {
 
                         <form>
                             <div id="checkbox">
-                                <label><p>Organ(s):</p></label>
+                                <label><p>Organ(s): </p></label>
                                 <div id="group">
                                     <label>
                                         <input type="checkbox" name="Organ" value="kidney" onChange={handleOrgon} />

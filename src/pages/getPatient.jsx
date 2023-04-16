@@ -44,7 +44,7 @@ export function GetPatient() {
 
 
         for (let i = 0; i < patientCount; i++) {
-            await contractInstance.methods.GetPatient(patientIDs[i]).call().then(function (result) {
+            await contractInstance.methods.getPatient(patientIDs[i]).call().then(function (result) {
 
                 let Patient =
                     [{ Index: i + 1, "FullName": result[0], Age: result[1], Gender: result[2], "MedicalID": patientIDs[i], "BloodType": result[3], "Organ": result[4], "Weight": result[5], "Height": result[6] }];
@@ -61,7 +61,7 @@ export function GetPatient() {
 
     return (
         <div className="GetPatient">
-            <h3 onClick={viewPatients}>.</h3>
+            <p onClick={viewPatients}>Bug to be fixed: Please Double click on this text to get Data</p>
             <table>
                 <tr>
                     <th>Full Name</th>

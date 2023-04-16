@@ -62,6 +62,7 @@ function SetPatient() {
             <div className="container">
                 <div className="row center-box">
                     <h3>Register a Patient</h3>
+                    <p>Bug to be fixed: Please dont unselect Organ(s)</p>
                     <div className="col-md-4 form-bg">
 
                         <p>Full Name: <input type="text" id="PatientFullName" placeholder="Full name" value={fullName} onChange={(e) => { setFullName(e.target.value) }} /></p>

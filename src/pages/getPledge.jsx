@@ -44,15 +44,11 @@ export function GetPledge() {
 
 
         for (let i = 0; i < pledgeCount; i++) {
-            await contractInstance.methods.GetPledge(pledgeIDs[i]).call().then(function (result) {
+            await contractInstance.methods.getPledge(pledgeIDs[i]).call().then(function (result) {
 
                 let Pledge =
                     [{ Index: i + 1, "FullName": result[0], Age: result[1], Gender: result[2], "MedicalID": pledgeIDs[i], "BloodType": result[3], "Organ": result[4], "Weight": result[5], "Height": result[6] }];
 
-
-                // if (i === 0) {
-                //     setPledges([]);
-                // }
                 Pledges.push(Pledge)
                 setPledges(Pledges);
 
@@ -65,7 +61,7 @@ export function GetPledge() {
 
     return (
         <div className="GetPledge">
-            <h3 onClick={viewPledges}>.</h3>
+            <p onClick={viewPledges}>Bug to be fixed: Please Double click on this text to get Data</p>
             <table>
                 <tr>
                     <th>Full Name</th>

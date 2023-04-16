@@ -33,7 +33,9 @@ export function GetDonor() {
             artifact.abi,
             contractAddress
         );
+
         console.log(contractInstance);
+
         const _donorCount = await contractInstance.methods.getCountOfDonors().call();
         setDonorCount(_donorCount)
         console.log(_donorCount);
@@ -50,9 +52,6 @@ export function GetDonor() {
                     [{ Index: i + 1, "FullName": result[0], Age: result[1], Gender: result[2], "MedicalID": donorIDs[i], "BloodType": result[3], "Organ": result[4], "Weight": result[5], "Height": result[6] }];
 
 
-                // if (i === 0) {
-                //     setDonors([]);
-                // }
                 Donors.push(Donor)
                 setDonors(Donors);
 
@@ -65,7 +64,7 @@ export function GetDonor() {
 
     return (
         <div className="GetDonor">
-            <h3 onClick={viewDonors}>.</h3>
+            <p onClick={viewDonors}>Bug to be fixed: Please Double click on this text to get Data</p>
             <table>
                 <tr>
                     <th>Full Name</th>
