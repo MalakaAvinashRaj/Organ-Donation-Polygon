@@ -13,15 +13,16 @@ export function Navbar() {
                 <div className="row">
                     <div className="col-12">
                         <nav>
-                            <Link to={'/'} >
-                                <button className="btn btn-sm btn-primary homepage"> Home Page </button>
-                            </Link>
                             <ul>
-                                <li>
-                                    <Link to={'/website'} >
-                                        <button className="btn btn-sm btn-primary homepage"> Visit Website </button>
-                                    </Link>
-                                </li>
+                                <Link to={'/'} >
+                                    <button className="btn btn-sm btn-primary homepage"> Home Page </button>
+                                </Link>
+                            </ul>
+                            <ul>
+                                <Link to={'/Organ-Donation-Polygon'} >
+                                    <button className="btn btn-sm btn-primary homepage"> Website </button>
+                                </Link>
+
                             </ul>
                         </nav>
                     </div>
