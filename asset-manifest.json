@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Organ-Donation-Polygon/static/css/main.5f7c04f6.css",
-    "main.js": "/Organ-Donation-Polygon/static/js/main.5ee40f08.js",
+    "main.js": "/Organ-Donation-Polygon/static/js/main.e5be7db6.js",
     "static/js/787.6652dfad.chunk.js": "/Organ-Donation-Polygon/static/js/787.6652dfad.chunk.js",
     "index.html": "/Organ-Donation-Polygon/index.html",
     "main.5f7c04f6.css.map": "/Organ-Donation-Polygon/static/css/main.5f7c04f6.css.map",
-    "main.5ee40f08.js.map": "/Organ-Donation-Polygon/static/js/main.5ee40f08.js.map",
+    "main.e5be7db6.js.map": "/Organ-Donation-Polygon/static/js/main.e5be7db6.js.map",
     "787.6652dfad.chunk.js.map": "/Organ-Donation-Polygon/static/js/787.6652dfad.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5f7c04f6.css",
-    "static/js/main.5ee40f08.js"
+    "static/js/main.e5be7db6.js"
   ]
 }
