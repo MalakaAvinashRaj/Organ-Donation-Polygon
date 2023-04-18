@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-// import "../pages-css/home.css";
 import '../css/bootstrap.css';
 import '../css/fontawesome-all.css';
 import '../css/style-home.css';

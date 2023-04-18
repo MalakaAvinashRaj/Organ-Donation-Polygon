@@ -6,7 +6,7 @@ import GetPatient from "./pages/getPatient";
 import SetPledge from "./pages/setPledge";
 import GetPledge from "./pages/getPledge";
 import Navbar from "./pages/navbar";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import Website from "./pages/website";
 import './App.css';
 
@@ -15,6 +15,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
+        <Route path="/Organ-Donation-Polygon" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/website" element={<Website />} />
         <Route path="/SetDonor" element={<SetDonor />} />
