@@ -15,9 +15,9 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/Organ-Donation-Polygon" element={<Home />} />
+        <Route path="/Organ-Donation-Polygon" element={<Website />} />
         <Route path="/" element={<Home />} />
-        <Route path="/website" element={<Website />} />
+        {/* <Route path="/website" element={<Website />} /> */}
         <Route path="/SetDonor" element={<SetDonor />} />
         <Route path="/GetDonor" element={<GetDonor />} />
         <Route path="/SetPatient" element={<SetPatient />} />
