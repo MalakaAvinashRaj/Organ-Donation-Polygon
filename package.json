@@ -1,6 +1,6 @@
 {
-  "homepage": "http://MalakaAvinashRaj.github.io/Organ-Donation-Blockchain",
-  "name": "organ",
+  "homepage": "http://MalakaAvinashRaj.github.io/Organ-Donation-truffle",
+  "name": "organ-donation-truffle",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

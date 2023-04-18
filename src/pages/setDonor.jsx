@@ -3,6 +3,7 @@ import '../css/fontawesome-all.css';
 import '../css/style-home.css';
 import '../css/styles.css';
 import { useState } from 'react';
+import { myContract, address } from '../connection/connect';
 
 function SetDonor() {
 
@@ -15,42 +16,21 @@ function SetDonor() {
     const [weight, setWeight] = useState(0);
     const [height, setHeight] = useState(0);
 
-    const Web3 = require('web3');
-    const web3 = new Web3("HTTP://127.0.0.1:7545");
-
-    const artifact = require("../contracts/DonorContract.json");
-
-    const deployedContract = artifact.networks[5777];
-    const contractAddress = deployedContract.address;
-
-    let accounts = null;
-    let contractInstance = null;
-
-    let MAX_GAS = 200000000;
-
     const handleRegister = async () => {
 
         console.log(fullName, age, gender, medicalID, bloodType, organ, weight, height)
 
-        accounts = await web3.eth.getAccounts();
-        contractInstance = new web3.eth.Contract(
-            artifact.abi,
-            contractAddress
-        );
-
-        console.log(contractInstance);
-
-        const validate = await contractInstance.methods.validateDonor(medicalID).call();
+        const validate = await myContract.methods.validateDonor(medicalID).call();
         console.log(validate);
 
-        const gas = await contractInstance.methods.setDonors(fullName, age, gender, medicalID, bloodType, organ, weight, height).estimateGas({ from: accounts[0] })
-
-        MAX_GAS = gas
-        console.log(gas)
-
-        contractInstance.methods.setDonors(fullName, age, gender, medicalID, bloodType, organ, weight, height).send({ from: accounts[0], gas: MAX_GAS }).then(function (response) {
-            console.log(response);
-        })
+        if (!validate) {
+            myContract.methods.setDonors(fullName, age, gender, medicalID, bloodType, organ, weight, height).send({ from: address }).then(function (response) {
+                console.log(response);
+                console.log(`https://mumbai.polygonscan.com/tx/${response.transactionHash}`)
+            })
+        } else {
+            console.log(`Donor with the medical ID ${medicalID} already exists`);
+        }
 
     }
 

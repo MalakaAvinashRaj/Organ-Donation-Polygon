@@ -1,15 +1,11 @@
-// import '../pages-css/navbar.css';
 import '../css/bootstrap.css';
 import '../css/fontawesome-all.css';
 import '../css/style-home.css';
 import '../css/styles.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 
 export function Navbar() {
-
-    const logo = require('../images/nav-logo.png')
 
     return (
         <header>
@@ -17,14 +13,14 @@ export function Navbar() {
                 <div className="row">
                     <div className="col-12">
                         <nav>
-                            <Link to={'/'} ><button class="btn btn-sm btn-primary homepage">
-                                <a class="hover" href="html/homepage.html">Home Page</a>
-                            </button></Link>
+                            <Link to={'/'} >
+                                <button className="btn btn-sm btn-primary homepage"> Home Page </button>
+                            </Link>
                             <ul>
                                 <li>
-                                    <Link to={'/website'} ><button class="btn btn-sm btn-primary homepage">
-                                        <a class="hover" href="html/homepage.html">Visit Website</a>
-                                    </button></Link>
+                                    <Link to={'/website'} >
+                                        <button className="btn btn-sm btn-primary homepage"> Visit Website </button>
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
