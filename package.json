@@ -1,5 +1,4 @@
 {
-  "homepage": "http://MalakaAvinashRaj.github.io/Organ-Donation-Polygon",
   "name": "organ-donation-polygon",
   "version": "0.1.0",
   "private": true,
@@ -25,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
-    "deploy": "build",
+    "deploy": "react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
