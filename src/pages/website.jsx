@@ -12,11 +12,10 @@ function Website() {
                     <div class="row center-box">
 
                         <div class="col-md-7 banner">
-                            <h1>Pledge To Become</h1>
-                            <h1>A Donor</h1>
+                            <h1>Pledge To Become A Donor</h1>
                             <h3>More than 100,000 people are waiting for a lifesaving transplant. You can help.</h3>
                             <button class="btn btn-lg btn-success">
-                                <Link to='/SetPledge'><a class="hover" href="donor-pledge.html">Pledge To Become A Donor</a></Link>
+                                <Link to='/SetPledge'><a class="hover" href="donor-pledge.html">Pledge to Donate</a></Link>
                             </button>
                         </div>
 

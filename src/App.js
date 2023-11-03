@@ -6,7 +6,7 @@ import GetPatient from "./pages/getPatient";
 import SetPledge from "./pages/setPledge";
 import GetPledge from "./pages/getPledge";
 import Navbar from "./pages/navbar";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import Website from "./pages/website";
 import './App.css';
 

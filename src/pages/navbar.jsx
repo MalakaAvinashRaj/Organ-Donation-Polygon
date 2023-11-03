@@ -9,18 +9,18 @@ export function Navbar() {
 
     return (
         <header>
-            <div className="container">
+            <div className="container nav-container">
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-12 row-2">
                         <nav>
                             <ul>
-                                <Link to={'/'} >
-                                    <button className="btn btn-sm btn-primary homepage"> Home Page </button>
+                                <Link to={'/'} className='btn custom-btn' >
+                                     Menu
                                 </Link>
                             </ul>
                             <ul>
-                                <Link to={'/Organ-Donation-Polygon'} >
-                                    <button className="btn btn-sm btn-primary homepage"> Website </button>
+                                <Link to={'/Organ-Donation-Polygon'} className="btn custom-btn"> 
+                                    Website
                                 </Link>
 
                             </ul>

@@ -1,79 +1,94 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { myContract } from "../connection/connect.js";
 
-
 export function GetDonor() {
+  const [donorCount, setDonorCount] = useState();
+  const [donorIDs, setDonorIDs] = useState([]);
+  const [Donors, setDonors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [donorCount, setDonorCount] = useState();
-    const [donorIDs, setDonorIDs] = useState([]);
-    const [Donors, setDonors] = useState([]);
-
-    useEffect(() => {
-        setDonors([]);
-        viewDonors();
-    }, [])
-
-    window.Buffer = window.Buffer || require("buffer").Buffer;
-
-    const viewDonors = async () => {
-
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Fetch donor count and IDs
         const _donorCount = await myContract.methods.getCountOfDonors().call();
-        setDonorCount(_donorCount)
-        console.log(_donorCount);
+        setDonorCount(_donorCount);
+
         const _donorIDs = await myContract.methods.getAllDonorIDs().call();
         setDonorIDs(_donorIDs);
-        console.log(_donorIDs);
 
+        // Fetch donor details based on IDs
+        const fetchedDonors = [];
 
-
-        for (let i = 0; i < donorCount; i++) {
-            await myContract.methods.getDonor(donorIDs[i]).call().then(function (result) {
-
-                console.log(result[4]);
-
-                let Donor =
-                    [{ Index: i + 1, "FullName": result[0], Age: result[1], Gender: result[2], "MedicalID": donorIDs[i], "BloodType": result[3], "Organ": result[4], "Weight": result[5], "Height": result[6] }];
-
-
-                Donors.push(Donor)
-                setDonors(Donors);
-
-            });
+        for (let i = 0; i < _donorCount; i++) {
+          const result = await myContract.methods.getDonor(_donorIDs[i]).call();
+          fetchedDonors.push({
+            Index: i + 1,
+            FullName: result[0],
+            Age: result[1],
+            Gender: result[2],
+            MedicalID: _donorIDs[i],
+            BloodType: result[3],
+            Organ: result[4],
+            Weight: result[5],
+            Height: result[6],
+          });
         }
-        console.log(Donors)
+
+        setDonors(fetchedDonors);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
     }
 
+    fetchData();
+  }, []);
 
-
-    return (
-        <div className="GetDonor">
-            <p onClick={viewDonors}>Bug to be fixed: Please Double click on this text to get Data</p>
-            <table>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Medical ID</th>
-                    <th>Blood Type</th>
-                    <th>Organ(s)</th>
-                    <th>Weight(kg)</th>
-                    <th>Height(cm)</th>
-                </tr>
-                {Donors.map((data) => (
-                    <tr>
-                        <td>{data[0].FullName}</td>
-                        <td>{data[0].Age}</td>
-                        <td>{data[0].Gender}</td>
-                        <td>{data[0].MedicalID}</td>
-                        <td>{data[0].BloodType}</td>
-                        <td>{data[0].Organ}</td>
-                        <td>{data[0].Weight}</td>
-                        <td>{data[0].Height}</td>
-                    </tr>
-                ))}
-            </table>
+  return (
+    <div className="GetDonor">
+      <table className="table">
+        <thead className="thead-dark">
+          <tr>
+            <th>Index</th>
+            <th>Full Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Medical ID</th>
+            <th>Blood Type</th>
+            <th>Organ(s)</th>
+            <th>Weight(kg)</th>
+            <th>Height(cm)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {!loading &&
+            Donors.map((data) => (
+              <tr key={data.Index}>
+                <td>{data.Index}</td>
+                <td>{data.FullName}</td>
+                <td>{data.Age}</td>
+                <td>{data.Gender}</td>
+                <td>{data.MedicalID}</td>
+                <td>{data.BloodType}</td>
+                <td>{data.Organ}</td>
+                <td>{data.Weight}</td>
+                <td>{data.Height}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      {loading && (
+        <div className="text-center my-5">
+          <p className="h5">Fetching donor data...</p>
+          <div className="spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default GetDonor;

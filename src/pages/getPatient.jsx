@@ -1,77 +1,93 @@
 import { useState, useEffect } from "react";
 import { myContract } from "../connection/connect.js";
-
-
+import '../css/styles.css';
 
 export function GetPatient() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [patients, setPatients] = useState([]);
 
-    const [patientCount, setPatientCount] = useState();
-    const [patientIDs, setPatientIDs] = useState([]);
-    const [Patients, setPatients] = useState([]);
+  useEffect(() => {
+    viewPatients();
+  }, []);
 
-    useEffect(() => {
-        setPatients([]);
-        viewPatients();
-    }, [])
+  const viewPatients = async () => {
+    try {
+      const patientCount = await myContract.methods.getCountOfPatients().call();
+      const patientIDs = await myContract.methods.getAllPatientIDs().call();
 
-    window.Buffer = window.Buffer || require("buffer").Buffer;
+      const patientPromises = patientIDs.map(async (patientID, index) => {
+        const result = await myContract.methods.getPatient(patientID).call();
+        return {
+          Index: index + 1,
+          FullName: result[0],
+          Age: result[1],
+          Gender: result[2],
+          MedicalID: patientID,
+          BloodType: result[3],
+          Organ: result[4],
+          Weight: result[5],
+          Height: result[6],
+        };
+      });
 
-    const viewPatients = async () => {
-
-        const _patientCount = await myContract.methods.getCountOfPatients().call();
-        setPatientCount(_patientCount)
-        console.log(_patientCount);
-        const _patientIDs = await myContract.methods.getAllPatientIDs().call();
-        setPatientIDs(_patientIDs);
-        console.log(_patientIDs);
-
-
-
-        for (let i = 0; i < patientCount; i++) {
-            await myContract.methods.getPatient(patientIDs[i]).call().then(function (result) {
-
-                let Patient =
-                    [{ Index: i + 1, "FullName": result[0], Age: result[1], Gender: result[2], "MedicalID": patientIDs[i], "BloodType": result[3], "Organ": result[4], "Weight": result[5], "Height": result[6] }];
-
-                Patients.push(Patient)
-                setPatients(Patients);
-
-            });
-        }
-        console.log(Patients)
+      const patientsData = await Promise.all(patientPromises);
+      setPatients(patientsData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+      setIsLoading(false);
     }
+  };
 
-
-
-    return (
-        <div className="GetPatient">
-            <p onClick={viewPatients}>Bug to be fixed: Please Double click on this text to get Data</p>
-            <table>
-                <tr>
-                    <th>Full Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Medical ID</th>
-                    <th>Blood Type</th>
-                    <th>Organ(s)</th>
-                    <th>Weight(kg)</th>
-                    <th>Height(cm)</th>
-                </tr>
-                {Patients.map((data) => (
-                    <tr>
-                        <td>{data[0].FullName}</td>
-                        <td>{data[0].Age}</td>
-                        <td>{data[0].Gender}</td>
-                        <td>{data[0].MedicalID}</td>
-                        <td>{data[0].BloodType}</td>
-                        <td>{data[0].Organ}</td>
-                        <td>{data[0].Weight}</td>
-                        <td>{data[0].Height}</td>
-                    </tr>
+  return (
+    <div className="container my-4">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <table className="table">
+            {/* Table header */}
+            <thead className="thead-dark">
+              <tr>
+                <th>Full Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Medical ID</th>
+                <th>Blood Type</th>
+                <th>Organ(s)</th>
+                <th>Weight(kg)</th>
+                <th>Height(cm)</th>
+              </tr>
+            </thead>
+            {/* Table body - Render only after loading is completed */}
+            {!isLoading && (
+              <tbody>
+                {patients.map((data) => (
+                  <tr key={data.MedicalID}>
+                    <td>{data.FullName}</td>
+                    <td>{data.Age}</td>
+                    <td>{data.Gender}</td>
+                    <td>{data.MedicalID}</td>
+                    <td>{data.BloodType}</td>
+                    <td>{data.Organ}</td>
+                    <td>{data.Weight}</td>
+                    <td>{data.Height}</td>
+                  </tr>
                 ))}
-            </table>
+              </tbody>
+            )}
+          </table>
+          {/* Loading indicator */}
+          {isLoading && (
+            <div className="text-center my-5">
+              <p className="h5">Fetching patient data...</p>
+              <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default GetPatient;

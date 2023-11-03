@@ -5,22 +5,18 @@ import '../css/styles.css';
 import { useState } from 'react';
 import { myContract, address } from "../connection/connect.js";
 
-
 function SetPledge() {
-
     const [fullName, setFullName] = useState('');
     const [age, setAge] = useState(0);
     const [gender, setGender] = useState('');
     const [medicalID, setMedicalID] = useState('');
-    const [bloodType, setBloodType] = useState('');
+    const [bloodType, setBloodType] = useState(null); // Initialize to null
     const [organ, setOrgan] = useState([]);
     const [weight, setWeight] = useState(0);
     const [height, setHeight] = useState(0);
 
-
     const handleRegister = async () => {
-
-        console.log(fullName, age, gender, medicalID, bloodType, organ, weight, height)
+        console.log(fullName, age, gender, medicalID, bloodType, organ, weight, height);
 
         const validate = await myContract.methods.validatePledge(medicalID).call();
         console.log(validate);
@@ -28,25 +24,30 @@ function SetPledge() {
         if (!validate) {
             myContract.methods.setPledge(fullName, age, gender, medicalID, bloodType, organ, weight, height).send({ from: address }).then(function (response) {
                 console.log(response);
-                console.log(`https://mumbai.polygonscan.com/tx/${response.transactionHash}`)
-            })
+                console.log(`https://mumbai.polygonscan.com/tx/${response.transactionHash}`);
+            });
         } else {
             console.log(`Patient with the medical ID ${medicalID} already exists`);
         }
-    }
+    };
 
     const handleOrgon = (e) => {
-        organ.push(e.target.value);
-        setOrgan(organ);
-    }
+        const selectedOrgan = e.target.value;
+        if (organ.includes(selectedOrgan)) {
+            // If the organ is already selected, remove it
+            setOrgan((prevOrgan) => prevOrgan.filter((item) => item !== selectedOrgan));
+        } else {
+            // If the organ is not selected, add it
+            setOrgan((prevOrgan) => [...prevOrgan, selectedOrgan]);
+        }
+    };
 
     return (
         <>
             <div className="container">
                 <div className="row center-box">
                     <h3>Register a Pledge</h3>
-                    <p>Bug to be fixed: Please dont unselect Organ(s)</p>
-                    <div className="col-md-4 form-bg">
+                    <div className="col-md-6 form-bg">
 
                         <p>Full Name: <input type="text" id="PledgeFullName" placeholder="Full name" value={fullName} onChange={(e) => { setFullName(e.target.value) }} /></p>
                         <p>Age: <input type="text" id="PledgeAge" placeholder="Age" value={age} onChange={(e) => { setAge(e.target.value) }} /></p>
@@ -72,7 +73,8 @@ function SetPledge() {
                         <p>Medical ID: <input type="text" id="PledgeMedicalID" placeholder="Pledge Medical ID" value={medicalID} onChange={(e) => { setMedicalID(e.target.value) }} /></p>
                         <form>
                             <label><p>Blood Type:</p></label>
-                            <select name="bloodtype" id="PledgeBloodType" onChange={(e) => { setBloodType(e.target.value) }}>
+                            <select name="bloodtype" id="PledgeBloodType" onChange={(e) => setBloodType(e.target.value)}>
+                                <option value={null}>-- Select blood group --</option>
                                 <option value="A-">A-</option>
                                 <option value="A+">A+</option>
                                 <option value="B-">B-</option>
@@ -112,7 +114,7 @@ function SetPledge() {
                         <p>Height (cm): <input type="text" id="PledgeHeight" placeholder="Height" value={height} onChange={(e) => { setHeight(e.target.value) }} /></p>
 
                         <div id="register">
-                            <button type="submit" className="btn btn-primary register" onClick={handleRegister} >Register</button>
+                            <button type="submit" className="btn submit-btn register" onClick={handleRegister} >Register</button>
                         </div>
 
                     </div>
