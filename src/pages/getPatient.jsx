@@ -12,7 +12,7 @@ export function GetPatient() {
 
   const viewPatients = async () => {
     try {
-      const patientCount = await myContract.methods.getCountOfPatients().call();
+      // const patientCount = await myContract.methods.getCountOfPatients().call();
       const patientIDs = await myContract.methods.getAllPatientIDs().call();
 
       const patientPromises = patientIDs.map(async (patientID, index) => {

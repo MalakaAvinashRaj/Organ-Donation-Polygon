@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { myContract } from "../connection/connect.js";
 
 export function GetPledge() {
-  const [pledgeCount, setPledgeCount] = useState();
-  const [pledgeIDs, setPledgeIDs] = useState([]);
+  // const [pledgeCount, setPledgeCount] = useState();
+  // const [pledgeIDs, setPledgeIDs] = useState([]);
   const [Pledges, setPledges] = useState([]);
   const [loading, setLoading] = useState(true);
 
