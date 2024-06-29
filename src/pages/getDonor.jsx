@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { myContract } from "../connection/connect.js";
 
 export function GetDonor() {
-  // const [donorCount, setDonorCount] = useState();
-  // const [donorIDs, setDonorIDs] = useState([]);
+  const [donorCount, setDonorCount] = useState();
+  const [donorIDs, setDonorIDs] = useState([]);
   const [Donors, setDonors] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        print(`${donorCount} ${donorIDs}`);
         // Fetch donor count and IDs
         const _donorCount = await myContract.methods.getCountOfDonors().call();
         setDonorCount(_donorCount);

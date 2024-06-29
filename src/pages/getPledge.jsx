@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import { myContract } from "../connection/connect.js";
 
 export function GetPledge() {
-  // const [pledgeCount, setPledgeCount] = useState();
-  // const [pledgeIDs, setPledgeIDs] = useState([]);
+  const [pledgeCount, setPledgeCount] = useState();
+  const [pledgeIDs, setPledgeIDs] = useState([]);
   const [Pledges, setPledges] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
+
+        print(`${pledgeCount} ${pledgeIDs}`);
         // Fetch pledge count and IDs
         const _pledgeCount = await myContract.methods.getCountOfPledges().call();
         setPledgeCount(_pledgeCount);
