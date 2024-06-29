@@ -46,7 +46,7 @@ export function GetPledge() {
     }
 
     fetchData();
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="GetPledge">

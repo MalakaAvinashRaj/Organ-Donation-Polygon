@@ -13,7 +13,7 @@ export function GetDonor() {
 
         // eslint-disable-next-line no-restricted-globals
         print(`${donorCount} ${donorIDs}`);
-        
+
         // Fetch donor count and IDs
         const _donorCount = await myContract.methods.getCountOfDonors().call();
         setDonorCount(_donorCount);
@@ -48,7 +48,7 @@ export function GetDonor() {
     }
 
     fetchData();
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="GetDonor">
