@@ -10,7 +10,7 @@ export function GetPledge() {
   useEffect(() => {
     async function fetchData() {
       try {
-
+        // eslint-disable-next-line no-restricted-globals
         print(`${pledgeCount} ${pledgeIDs}`);
         // Fetch pledge count and IDs
         const _pledgeCount = await myContract.methods.getCountOfPledges().call();

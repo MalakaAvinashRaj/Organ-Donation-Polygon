@@ -15,6 +15,7 @@ export function GetPatient() {
       const patientCount = await myContract.methods.getCountOfPatients().call();
       const patientIDs = await myContract.methods.getAllPatientIDs().call();
 
+      // eslint-disable-next-line no-restricted-globals
       print(patientCount.toString());
 
       const patientPromises = patientIDs.map(async (patientID, index) => {

@@ -10,7 +10,10 @@ export function GetDonor() {
   useEffect(() => {
     async function fetchData() {
       try {
+
+        // eslint-disable-next-line no-restricted-globals
         print(`${donorCount} ${donorIDs}`);
+        
         // Fetch donor count and IDs
         const _donorCount = await myContract.methods.getCountOfDonors().call();
         setDonorCount(_donorCount);
