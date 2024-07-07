@@ -1,7 +1,7 @@
 const ABI = require('../abi.json');
 const Web3 = require('web3');
 
-const contractAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4";
+const contractAddress = "0x06Aa94B9Ee03460A668C09612860F9A87f4D5Aaf";
 let address = null;
 
 const web3 = new Web3(window.ethereum);
