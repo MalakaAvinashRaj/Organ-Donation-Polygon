@@ -11,7 +11,7 @@ export function GetPledge() {
     async function fetchData() {
       try {
         // eslint-disable-next-line no-restricted-globals
-        print(`${pledgeCount} ${pledgeIDs}`);
+        console.log(`${pledgeCount} ${pledgeIDs}`);
         // Fetch pledge count and IDs
         const _pledgeCount = await myContract.methods.getCountOfPledges().call();
         setPledgeCount(_pledgeCount);
@@ -76,7 +76,8 @@ export function GetPledge() {
                 <td>{data.Weight}</td>
                 <td>{data.Height}</td>
               </tr>
-            ))}
+            ))
+          }
         </tbody>
       </table>
       {loading && (

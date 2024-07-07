@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { myContract } from "../connection/connect.js";
 
 export function GetDonor() {
@@ -7,48 +7,58 @@ export function GetDonor() {
   const [Donors, setDonors] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const hasFetchedData = useRef(false);
+
   useEffect(() => {
     async function fetchData() {
-      try {
+      if (!hasFetchedData.current) {
+        try {
+          // eslint-disable-next-line no-restricted-globals
+          console.log(`${donorCount} ${donorIDs}`);
 
-        // eslint-disable-next-line no-restricted-globals
-        print(`${donorCount} ${donorIDs}`);
+          // Fetch donor count and IDs
+          const _donorCount = await myContract.methods
+            .getCountOfDonors()
+            .call();
+          setDonorCount(_donorCount);
 
-        // Fetch donor count and IDs
-        const _donorCount = await myContract.methods.getCountOfDonors().call();
-        setDonorCount(_donorCount);
+          const _donorIDs = await myContract.methods.getAllDonorIDs().call();
+          setDonorIDs(_donorIDs);
 
-        const _donorIDs = await myContract.methods.getAllDonorIDs().call();
-        setDonorIDs(_donorIDs);
+          // Fetch donor details based on IDs
+          const fetchedDonors = [];
 
-        // Fetch donor details based on IDs
-        const fetchedDonors = [];
+          for (let i = 0; i < _donorCount; i++) {
+            const result = await myContract.methods
+              .getDonor(_donorIDs[i])
+              .call();
+            fetchedDonors.push({
+              Index: i + 1,
+              FullName: result[0],
+              Age: result[1],
+              Gender: result[2],
+              MedicalID: _donorIDs[i],
+              BloodType: result[3],
+              Organ: result[4],
+              Weight: result[5],
+              Height: result[6],
+            });
+          }
 
-        for (let i = 0; i < _donorCount; i++) {
-          const result = await myContract.methods.getDonor(_donorIDs[i]).call();
-          fetchedDonors.push({
-            Index: i + 1,
-            FullName: result[0],
-            Age: result[1],
-            Gender: result[2],
-            MedicalID: _donorIDs[i],
-            BloodType: result[3],
-            Organ: result[4],
-            Weight: result[5],
-            Height: result[6],
-          });
+          setDonors(fetchedDonors);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setLoading(false);
+        } finally {
+          hasFetchedData.current = true; 
+          setLoading(false);
         }
-
-        setDonors(fetchedDonors);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
       }
     }
 
     fetchData();
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="GetDonor">
